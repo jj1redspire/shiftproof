@@ -1,8 +1,8 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase'
-import { DEFAULT_ZONES } from '@/lib/zones'
+import { getZonesForBusinessType } from '@/lib/zones'
 import { Shield, Check, Loader2, MapPin, Building2 } from 'lucide-react'
 
 const BUSINESS_TYPES = [
@@ -10,7 +10,8 @@ const BUSINESS_TYPES = [
   { value: 'nightclub', label: 'Nightclub', emoji: '🎵' },
   { value: 'lounge', label: 'Lounge', emoji: '🛋️' },
   { value: 'brewery', label: 'Brewery Taproom', emoji: '🍻' },
-  { value: 'restaurant', label: 'Restaurant/Bar', emoji: '🍽️' },
+  { value: 'restaurant', label: 'Restaurant', emoji: '🍽️' },
+  { value: 'bar_and_restaurant', label: 'Bar & Restaurant', emoji: '🍸' },
   { value: 'other', label: 'Other', emoji: '🏢' },
 ]
 
@@ -23,9 +24,18 @@ export default function OnboardingPage() {
   const [businessType, setBusinessType] = useState('')
   const [locationName, setLocationName] = useState('')
   const [locationAddress, setLocationAddress] = useState('')
-  const [enabledZones, setEnabledZones] = useState<Set<string>>(new Set(DEFAULT_ZONES.map(z => z.name)))
+  const [enabledZones, setEnabledZones] = useState<Set<string>>(new Set())
+
+  // Whenever the business type changes, reset the zone selection to the
+  // recommended set for that type so users start from a sensible default.
+  useEffect(() => {
+    if (!businessType) return
+    const zones = getZonesForBusinessType(businessType)
+    setEnabledZones(new Set(zones.map(z => z.name)))
+  }, [businessType])
 
   const totalSteps = 4
+  const zonesForType = businessType ? getZonesForBusinessType(businessType) : []
 
   async function handleComplete() {
     setLoading(true)
@@ -43,7 +53,7 @@ export default function OnboardingPage() {
         plan: 'free',
       })
 
-      // Create location
+      // Create location — store business_type alongside the legacy type field
       const { data: location, error: locError } = await supabase
         .from('shiftproof_locations')
         .insert({
@@ -51,13 +61,14 @@ export default function OnboardingPage() {
           name: locationName || businessName,
           address: locationAddress,
           type: businessType,
+          business_type: businessType,
         })
         .select()
         .single()
       if (locError) throw locError
 
-      // Create zones
-      const zones = DEFAULT_ZONES
+      // Create zones — only the ones the user enabled
+      const zones = zonesForType
         .filter(z => enabledZones.has(z.name))
         .map(z => ({
           location_id: location.id,
@@ -150,6 +161,11 @@ export default function OnboardingPage() {
                       </button>
                     ))}
                   </div>
+                  {businessType && (
+                    <p className="text-xs text-gray-500 mt-2">
+                      {zonesForType.length} inspection zones pre-configured for this type
+                    </p>
+                  )}
                 </div>
               </div>
               <div className="flex gap-3 mt-6">
@@ -206,10 +222,18 @@ export default function OnboardingPage() {
           {step === 4 && (
             <div>
               <h2 className="text-2xl font-bold mb-2">Configure Inspection Zones</h2>
-              <p className="text-gray-400 mb-4">Select which areas of your space you want to document daily. You can change this later.</p>
+              <p className="text-gray-400 mb-4">
+                We&apos;ve pre-selected the standard zones for a{' '}
+                <span className="text-amber-400 font-medium">
+                  {BUSINESS_TYPES.find(b => b.value === businessType)?.label}
+                </span>. Uncheck anything you don&apos;t have.
+              </p>
               <div className="space-y-2 max-h-72 overflow-y-auto pr-1 mb-6">
-                {DEFAULT_ZONES.map(zone => (
-                  <label key={zone.name} className="flex items-center gap-3 p-3 rounded-lg bg-navy-700 hover:bg-navy-600 cursor-pointer transition-colors border border-transparent hover:border-surface-border">
+                {zonesForType.map(zone => (
+                  <label
+                    key={zone.name}
+                    className="flex items-center gap-3 p-3 rounded-lg bg-navy-700 hover:bg-navy-600 cursor-pointer transition-colors border border-transparent hover:border-surface-border"
+                  >
                     <div
                       className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-colors ${enabledZones.has(zone.name) ? 'bg-amber-400 border-amber-400' : 'border-gray-500'}`}
                       onClick={() => {
