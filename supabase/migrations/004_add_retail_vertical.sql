@@ -1,0 +1,21 @@
+-- ============================================================
+-- ShiftProof Migration 004 — Retail vertical support
+-- Run AFTER 003_add_salon_vertical.sql
+-- Safe no-op if run multiple times.
+-- ============================================================
+--
+-- No schema changes required. business_type is a free-text
+-- TEXT column added in migration 002. New vertical values
+-- (retail, boutique) are handled purely in application code.
+--
+-- Valid business_type values after this migration:
+--   bar, nightclub, lounge, brewery
+--   restaurant, bar_and_restaurant
+--   salon, barbershop, spa, nail_salon
+--   retail, boutique
+--   other
+--
+-- This migration is a no-op record-keeper. Run it to confirm
+-- the schema is current before deploying the retail vertical.
+
+SELECT 'Retail vertical migration 004 — no schema changes required' AS status;

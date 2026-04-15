@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { Shield, Camera, Mic, FileText, TrendingUp, AlertTriangle, DollarSign, CheckCircle, ChevronDown, ChevronUp, Wine, Utensils, Scissors } from 'lucide-react'
+import { Shield, Camera, Mic, FileText, TrendingUp, AlertTriangle, DollarSign, CheckCircle, ChevronDown, ChevronUp, Wine, Utensils, Scissors, ShoppingBag } from 'lucide-react'
 
 const faqs = [
   {
@@ -213,7 +213,7 @@ export default function LandingPage() {
           <p className="text-gray-400 text-center mb-12 max-w-xl mx-auto">
             ShiftProof has vertical-specific zone templates and AI analysis tailored to each business type.
           </p>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
               {
                 icon: Wine,
@@ -221,8 +221,8 @@ export default function LandingPage() {
                 href: '/',
                 color: 'border-amber-400/40 bg-amber-400/5',
                 iconColor: 'text-amber-400',
-                badge: 'You\'re here',
-                desc: 'Closing walkthroughs. Lease deposit protection. Slip-and-fall defense. 10 pre-built zones.',
+                badge: "You're here",
+                desc: 'Closing walkthroughs. Lease deposit protection. Slip-and-fall defense. 10 zones.',
                 zones: ['Bar Area', 'Dance Floor', 'Seating', 'Restrooms', 'Kitchen', 'Patio'],
               },
               {
@@ -232,7 +232,7 @@ export default function LandingPage() {
                 color: 'border-surface-border bg-surface hover:border-amber-400/40',
                 iconColor: 'text-green-400',
                 badge: null,
-                desc: 'Opening walkthroughs. Health inspection defense. Kitchen + grease trap documentation. 10 zones.',
+                desc: 'Opening walkthroughs. Health inspection defense. Kitchen + grease trap docs. 10 zones.',
                 zones: ['Kitchen', 'Dining Room', 'Bar Area', 'Patio', 'Host Stand', 'Parking'],
               },
               {
@@ -242,8 +242,18 @@ export default function LandingPage() {
                 color: 'border-surface-border bg-surface hover:border-amber-400/40',
                 iconColor: 'text-blue-400',
                 badge: null,
-                desc: 'Chemical damage protection. State board inspection docs. OSHA compliance notes. 7 zones.',
-                zones: ['Styling Stations', 'Chemical Storage', 'Shampoo Area', 'Reception', 'Exterior'],
+                desc: 'Chemical damage protection. State board inspection docs. OSHA compliance. 7 zones.',
+                zones: ['Styling Stations', 'Chemical Storage', 'Shampoo Area', 'Reception'],
+              },
+              {
+                icon: ShoppingBag,
+                title: 'Retail Stores',
+                href: '/retail',
+                color: 'border-surface-border bg-surface hover:border-amber-400/40',
+                iconColor: 'text-purple-400',
+                badge: null,
+                desc: 'Lease deposit protection. Shrinkage documentation. Security camera logging. 8 zones.',
+                zones: ['Sales Floor', 'Fitting Rooms', 'Checkout', 'Stockroom', 'Parking'],
               },
             ].map(v => (
               <Link
@@ -353,6 +363,7 @@ export default function LandingPage() {
           <div className="flex flex-wrap gap-6">
             <Link href="/restaurants" className="hover:text-white transition-colors">Restaurants</Link>
             <Link href="/salons" className="hover:text-white transition-colors">Salons</Link>
+            <Link href="/retail" className="hover:text-white transition-colors">Retail</Link>
             <Link href="/auth/login" className="hover:text-white transition-colors">Sign In</Link>
             <Link href="/auth/signup" className="hover:text-white transition-colors">Sign Up</Link>
             <a href="mailto:joel@helmport.com" className="hover:text-white transition-colors">Contact</a>

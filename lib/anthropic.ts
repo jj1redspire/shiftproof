@@ -30,6 +30,40 @@ export interface ZoneConditionResult {
 function getBusinessTypeContext(businessType: string): string {
   const isSalon = ['salon', 'barbershop', 'spa', 'nail_salon'].includes(businessType)
   const isRestaurant = ['restaurant', 'bar_and_restaurant'].includes(businessType)
+  const isRetail = ['retail', 'boutique'].includes(businessType)
+
+  if (isRetail) {
+    return `
+This is a retail store or boutique facility. Apply these additional rules:
+
+SECURITY / LOSS PREVENTION — Flag as urgent if the user mentions:
+- Security cameras not operational (interior or exterior)
+- Display cases unlocked or glass damaged
+- EAS/security tag system not functioning
+- Back door / loading dock not secured or lock damaged
+- Safe access compromised
+
+Flag as attention:
+- Security camera aimed incorrectly or field of view blocked
+- Display case lock stiff or intermittent
+- Stockroom door seal worn
+
+ADA / ACCESSIBILITY COMPLIANCE — Flag as attention if the user mentions:
+- Entry ramp cracked, uneven, or obstructed
+- Accessible parking spaces blocked or markings faded
+- Restroom door not fully openable, or grab bars damaged
+- Aisles obstructed with displays below 36-inch clear width
+
+SLIP-AND-FALL PRIORITY ZONES:
+- Entrance / mat area: wet floor, curled mat, uneven threshold → urgent
+- Main sales floor: aisle blockage from display, broken fixture on floor → urgent
+- Fitting rooms: broken hook at eye level, poor lighting → attention
+
+INVENTORY / LEASE PROTECTION:
+- Note any damage to custom fixtures, display walls, built-in shelving, or specialty lighting
+- Flag as attention — these are the surfaces landlords claim at lease end
+`
+  }
 
   if (isSalon) {
     return `

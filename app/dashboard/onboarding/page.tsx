@@ -14,6 +14,8 @@ const BUSINESS_TYPES = [
   { value: 'bar_and_restaurant', label: 'Bar & Restaurant', emoji: '🍸' },
   { value: 'salon', label: 'Salon / Barbershop', emoji: '✂️' },
   { value: 'spa', label: 'Spa / Nail Salon', emoji: '💅' },
+  { value: 'retail', label: 'Retail Store', emoji: '🛍️' },
+  { value: 'boutique', label: 'Boutique / Specialty', emoji: '👗' },
   { value: 'other', label: 'Other', emoji: '🏢' },
 ]
 

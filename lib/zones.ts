@@ -377,6 +377,132 @@ export const SPA_ZONES: ZoneTemplate[] = [
   },
 ]
 
+// ─── RETAIL / BOUTIQUE ZONES ─────────────────────────────────────────────────
+
+export const RETAIL_ZONES: ZoneTemplate[] = [
+  {
+    name: 'Storefront / Entrance',
+    category: 'entry',
+    sort_order: 1,
+    checkpoints: [
+      'Front door condition (glass, hardware, seals)',
+      'Windows (cracks, cleanliness, display integrity)',
+      'Exterior signage (lighting, condition)',
+      'Sidewalk / entry path (trip hazards, cleanliness)',
+      'Welcome mat / entry flooring',
+      'Security cameras — exterior (operational, aimed correctly)',
+      'Accessibility path / ramp condition',
+      'Lighting (exterior, vestibule)',
+    ],
+  },
+  {
+    name: 'Main Sales Floor',
+    category: 'retail-floor',
+    sort_order: 2,
+    checkpoints: [
+      'Display fixtures (stability, condition, scratches)',
+      'Shelving units (level, secured to wall, no damage)',
+      'Flooring condition (stains, damage, trip hazards)',
+      'Lighting fixtures (all operational, no burnt bulbs)',
+      'Ceiling (tiles, stains, fixtures)',
+      'Wall surfaces (scuffs, holes, damage)',
+      'Aisles clear (no display encroachment or hazards)',
+      'Security tags / EAS system visible',
+      'Fire exits unobstructed',
+    ],
+  },
+  {
+    name: 'Fitting Rooms',
+    category: 'fitting',
+    sort_order: 3,
+    checkpoints: [
+      'Mirrors (cracks, mounting, cleanliness)',
+      'Hooks / hangers (secure, not sharp)',
+      'Doors or curtains (functional, privacy maintained)',
+      'Lighting (adequate, no burnt bulbs)',
+      'Flooring condition',
+      'Walls (damage, graffiti)',
+      'Bench / seating condition',
+    ],
+  },
+  {
+    name: 'Checkout / Register Area',
+    category: 'checkout',
+    sort_order: 4,
+    checkpoints: [
+      'Counter surface condition',
+      'POS / register equipment (physical condition)',
+      'Display cases (glass, locks, condition)',
+      'Impulse / candy rack condition',
+      'Lighting above checkout',
+      'Floor behind counter',
+      'Safe / cash storage area',
+      'Credit card terminal / receipt printer',
+    ],
+  },
+  {
+    name: 'Restrooms',
+    category: 'restroom',
+    sort_order: 5,
+    checkpoints: [
+      'Toilets / fixtures',
+      'Sinks / faucets',
+      'Mirrors',
+      'Soap / paper dispensers',
+      'Floor condition',
+      'Wall tiles / surfaces',
+      'Stall doors / locks',
+      'Exhaust fan',
+      'Lighting',
+    ],
+  },
+  {
+    name: 'Stockroom / Receiving',
+    category: 'back-of-house',
+    sort_order: 6,
+    checkpoints: [
+      'Shelving / pallet racks (stability, condition)',
+      'Loading dock / back door (lock, seal, condition)',
+      'Inventory staging area (organized, no floor overflow)',
+      'Fire exits (unobstructed, door condition)',
+      'Ceiling / walls (water stains, damage)',
+      'Lighting (all operational)',
+      'Fire extinguisher (inspected tag)',
+      'Security camera — stockroom (operational)',
+    ],
+  },
+  {
+    name: 'Office / Break Room',
+    category: 'office',
+    sort_order: 7,
+    checkpoints: [
+      'Desk and work surface condition',
+      'Computer / equipment (physical condition)',
+      'Employee lockers / cubbies',
+      'Electrical panel access clear',
+      'HVAC / mechanical',
+      'Ceiling / walls',
+      'Fire extinguisher',
+      'Exit route clear',
+    ],
+  },
+  {
+    name: 'Parking Lot / Exterior',
+    category: 'exterior',
+    sort_order: 8,
+    checkpoints: [
+      'Pavement condition (potholes, cracks)',
+      'Parking lot lighting (all poles operational)',
+      'Exterior signage (directional, hours)',
+      'ADA parking spaces and path-of-travel',
+      'Dumpster area / enclosure',
+      'Building exterior walls',
+      'Security cameras — parking lot (operational)',
+      'Cart return area condition',
+    ],
+  },
+]
+
 // ─── LEGACY EXPORT (backward compat) ─────────────────────────────────────────
 
 export const DEFAULT_ZONES = BAR_ZONES
@@ -395,6 +521,9 @@ export function getZonesForBusinessType(type: string): ZoneTemplate[] {
     case 'spa':
     case 'nail_salon':
       return SPA_ZONES
+    case 'retail':
+    case 'boutique':
+      return RETAIL_ZONES
     case 'bar':
     case 'nightclub':
     case 'lounge':
@@ -414,8 +543,13 @@ export const BUSINESS_TYPE_LABELS: Record<string, string> = {
   bar_and_restaurant: 'Bar & Restaurant',
   salon: 'Salon / Barbershop',
   spa: 'Spa / Nail Salon',
+  retail: 'Retail Store',
+  boutique: 'Boutique / Specialty Shop',
   other: 'Other',
 }
 
 // Business types that use salon-specific AI prompts
 export const SALON_BUSINESS_TYPES = new Set(['salon', 'barbershop', 'spa', 'nail_salon'])
+
+// Business types that use retail-specific AI prompts
+export const RETAIL_BUSINESS_TYPES = new Set(['retail', 'boutique'])
