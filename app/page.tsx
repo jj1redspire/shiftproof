@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { Shield, Camera, Mic, FileText, TrendingUp, AlertTriangle, DollarSign, CheckCircle, ChevronDown, ChevronUp } from 'lucide-react'
+import { Shield, Camera, Mic, FileText, TrendingUp, AlertTriangle, DollarSign, CheckCircle, ChevronDown, ChevronUp, Wine, Utensils, Scissors } from 'lucide-react'
 
 const faqs = [
   {
@@ -206,6 +206,70 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Verticals */}
+      <section className="bg-navy-900 py-20">
+        <div className="max-w-5xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-4">Built for Every Hospitality Business</h2>
+          <p className="text-gray-400 text-center mb-12 max-w-xl mx-auto">
+            ShiftProof has vertical-specific zone templates and AI analysis tailored to each business type.
+          </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                icon: Wine,
+                title: 'Bars & Nightclubs',
+                href: '/',
+                color: 'border-amber-400/40 bg-amber-400/5',
+                iconColor: 'text-amber-400',
+                badge: 'You\'re here',
+                desc: 'Closing walkthroughs. Lease deposit protection. Slip-and-fall defense. 10 pre-built zones.',
+                zones: ['Bar Area', 'Dance Floor', 'Seating', 'Restrooms', 'Kitchen', 'Patio'],
+              },
+              {
+                icon: Utensils,
+                title: 'Restaurants',
+                href: '/restaurants',
+                color: 'border-surface-border bg-surface hover:border-amber-400/40',
+                iconColor: 'text-green-400',
+                badge: null,
+                desc: 'Opening walkthroughs. Health inspection defense. Kitchen + grease trap documentation. 10 zones.',
+                zones: ['Kitchen', 'Dining Room', 'Bar Area', 'Patio', 'Host Stand', 'Parking'],
+              },
+              {
+                icon: Scissors,
+                title: 'Salons & Barbershops',
+                href: '/salons',
+                color: 'border-surface-border bg-surface hover:border-amber-400/40',
+                iconColor: 'text-blue-400',
+                badge: null,
+                desc: 'Chemical damage protection. State board inspection docs. OSHA compliance notes. 7 zones.',
+                zones: ['Styling Stations', 'Chemical Storage', 'Shampoo Area', 'Reception', 'Exterior'],
+              },
+            ].map(v => (
+              <Link
+                key={v.title}
+                href={v.href}
+                className={`block border rounded-xl p-6 transition-colors ${v.color}`}
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <v.icon className={`w-8 h-8 ${v.iconColor}`} />
+                  {v.badge && (
+                    <span className="text-xs bg-amber-400 text-navy-900 font-bold px-2 py-0.5 rounded-full">{v.badge}</span>
+                  )}
+                </div>
+                <h3 className="font-bold text-lg text-white mb-2">{v.title}</h3>
+                <p className="text-gray-400 text-sm mb-4 leading-relaxed">{v.desc}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {v.zones.map(z => (
+                    <span key={z} className="text-xs bg-navy-700 text-gray-400 px-2 py-1 rounded">{z}</span>
+                  ))}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Pricing */}
       <section id="pricing" className="bg-navy-900 py-20">
         <div className="max-w-5xl mx-auto px-4">
@@ -286,7 +350,9 @@ export default function LandingPage() {
             <span className="font-bold text-white">ShiftProof</span>
             <span>© 2026. All rights reserved.</span>
           </div>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap gap-6">
+            <Link href="/restaurants" className="hover:text-white transition-colors">Restaurants</Link>
+            <Link href="/salons" className="hover:text-white transition-colors">Salons</Link>
             <Link href="/auth/login" className="hover:text-white transition-colors">Sign In</Link>
             <Link href="/auth/signup" className="hover:text-white transition-colors">Sign Up</Link>
             <a href="mailto:joel@helmport.com" className="hover:text-white transition-colors">Contact</a>

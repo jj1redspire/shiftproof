@@ -13,7 +13,8 @@ export interface Location {
   user_id: string
   name: string
   address?: string
-  type: 'bar' | 'nightclub' | 'lounge' | 'brewery' | 'restaurant' | 'other'
+  type: string
+  business_type?: string
   timezone: string
   is_active: boolean
   created_at: string

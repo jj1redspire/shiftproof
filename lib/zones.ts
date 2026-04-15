@@ -150,7 +150,6 @@ export const RESTAURANT_ZONES: ZoneTemplate[] = [
 // ─── COMBINED BAR + RESTAURANT ────────────────────────────────────────────────
 
 export const BAR_AND_RESTAURANT_ZONES: ZoneTemplate[] = [
-  // Starts with restaurant zones but adds entertainment zones from bar set
   ...RESTAURANT_ZONES,
   {
     name: 'Dance Floor / Stage',
@@ -160,7 +159,225 @@ export const BAR_AND_RESTAURANT_ZONES: ZoneTemplate[] = [
   },
 ]
 
-// ─── LEGACY EXPORT (backward compat — used by existing onboarding) ────────────
+// ─── SALON / BARBERSHOP ZONES ─────────────────────────────────────────────────
+
+export const SALON_ZONES: ZoneTemplate[] = [
+  {
+    name: 'Reception / Waiting Area',
+    category: 'reception',
+    sort_order: 1,
+    checkpoints: [
+      'Seating condition (fabric, frame, cushions)',
+      'Floor condition (stains, damage, trip hazards)',
+      'Front desk / check-in counter',
+      'Retail display shelving and product condition',
+      'Magazine rack / reading material area',
+      'Lighting fixtures',
+      'Windows / glass (cleanliness, cracks)',
+      'Ceiling (water stains, damage)',
+    ],
+  },
+  {
+    name: 'Styling Stations',
+    category: 'salon-floor',
+    sort_order: 2,
+    checkpoints: [
+      'Station mirrors (cracks, mounting)',
+      'Styling chairs (hydraulics, upholstery tears, base)',
+      'Countertops (staining, chemical damage, burns)',
+      'Tool storage / drawer condition',
+      'Electrical outlets at each station',
+      'Floor around stations (chemical staining, damage)',
+      'Wall surfaces behind stations',
+      'Lighting above stations',
+      'Chair mat / anti-fatigue mat condition',
+    ],
+  },
+  {
+    name: 'Shampoo / Wash Area',
+    category: 'salon-floor',
+    sort_order: 3,
+    checkpoints: [
+      'Shampoo bowls (cracks, staining, hardware)',
+      'Plumbing connections (drips, leaks under bowls)',
+      'Floor drainage (flow, clogging)',
+      'Anti-slip mats (placement, condition)',
+      'Ceiling above bowls (water damage, staining)',
+      'Wall tile / surfaces (grout, mold)',
+      'Towel storage / dispenser',
+      'Chair / recline mechanism',
+    ],
+  },
+  {
+    name: 'Color Mixing / Chemical Storage',
+    category: 'chemical',
+    sort_order: 4,
+    checkpoints: [
+      'Ventilation (fan operation, airflow)',
+      'Cabinet locks (secured, functional)',
+      'Chemical labeling (all containers properly labeled)',
+      'Counter surfaces (staining, chemical damage)',
+      'Color staining on walls / floors',
+      'SDS / MSDS binder present and accessible',
+      'No expired products visible',
+      'Spill kit present and stocked',
+      'Sink / rinse station condition',
+    ],
+  },
+  {
+    name: 'Restrooms',
+    category: 'restroom',
+    sort_order: 5,
+    checkpoints: [
+      'Toilets / fixtures',
+      'Sinks / faucets',
+      'Mirrors',
+      'Soap / paper dispensers',
+      'Floor condition',
+      'Wall tiles / surfaces',
+      'Stall doors / locks',
+      'Exhaust fan',
+      'Lighting',
+    ],
+  },
+  {
+    name: 'Break Room / Storage',
+    category: 'back-of-house',
+    sort_order: 6,
+    checkpoints: [
+      'Inventory / supply shelving condition',
+      'Product storage organization',
+      'Employee lockers / cubbies',
+      'Electrical panel access',
+      'HVAC / mechanical',
+      'Ceiling / walls',
+      'Fire extinguisher (inspected tag)',
+      'Exit route clear',
+    ],
+  },
+  {
+    name: 'Exterior / Signage',
+    category: 'exterior',
+    sort_order: 7,
+    checkpoints: [
+      'Storefront glass / windows',
+      'Front door and hardware',
+      'Sidewalk / entry path (trip hazards)',
+      'Parking area condition',
+      'Exterior signage (illumination, condition)',
+      'Signage lighting',
+      'Building exterior walls',
+      'Accessibility path (ramp, door width)',
+    ],
+  },
+]
+
+// ─── SPA / NAIL SALON ZONES ───────────────────────────────────────────────────
+
+export const SPA_ZONES: ZoneTemplate[] = [
+  {
+    name: 'Reception / Waiting Area',
+    category: 'reception',
+    sort_order: 1,
+    checkpoints: [
+      'Seating condition (fabric, frame, cushions)',
+      'Floor condition (stains, damage, trip hazards)',
+      'Front desk / check-in counter',
+      'Retail display shelving and product condition',
+      'Lighting fixtures',
+      'Windows / glass (cleanliness, cracks)',
+      'Ceiling (water stains, damage)',
+    ],
+  },
+  {
+    name: 'Nail Stations',
+    category: 'salon-floor',
+    sort_order: 2,
+    checkpoints: [
+      'Station tables (surface condition, chemical staining)',
+      'Client chairs (cushions, stability)',
+      'Technician seating',
+      'Ventilation / nail dust extraction',
+      'Electrical outlets at each station',
+      'Floor around stations (chemical staining)',
+      'Lighting above stations',
+    ],
+  },
+  {
+    name: 'Pedicure Area',
+    category: 'salon-floor',
+    sort_order: 3,
+    checkpoints: [
+      'Pedicure chairs / tubs (liner condition, jets, plumbing)',
+      'Floor drainage',
+      'Anti-slip mats',
+      'Floor surface (water damage, staining)',
+      'Plumbing under chairs (leaks)',
+      'Ceiling above area (moisture, staining)',
+    ],
+  },
+  {
+    name: 'Treatment Rooms',
+    category: 'treatment',
+    sort_order: 4,
+    checkpoints: [
+      'Treatment table / bed condition',
+      'Floor condition',
+      'Wall surfaces',
+      'Lighting / dimmer',
+      'Electrical outlets',
+      'HVAC vent / air quality',
+      'Door / privacy latch',
+    ],
+  },
+  {
+    name: 'Chemical / Product Storage',
+    category: 'chemical',
+    sort_order: 5,
+    checkpoints: [
+      'Ventilation (fan operation)',
+      'Cabinet locks (secured)',
+      'Chemical labeling (all containers)',
+      'Counter surfaces (staining, damage)',
+      'SDS / MSDS binder accessible',
+      'No expired products',
+      'Spill kit present',
+    ],
+  },
+  {
+    name: 'Sterilization / Sanitation Area',
+    category: 'sanitation',
+    sort_order: 6,
+    checkpoints: [
+      'Autoclave / UV sterilizer condition',
+      'Implement soaking containers',
+      'Sharps disposal container (proper, sealed)',
+      'Barrier precaution supplies stocked (gloves, masks)',
+      'Sanitation log posted and current',
+      'Clean vs. dirty implement separation',
+    ],
+  },
+  {
+    name: 'Restrooms',
+    category: 'restroom',
+    sort_order: 7,
+    checkpoints: ['Toilets / fixtures', 'Sinks / faucets', 'Mirrors', 'Soap / paper dispensers', 'Floor condition', 'Wall tiles / surfaces', 'Stall doors / locks', 'Exhaust fan', 'Lighting'],
+  },
+  {
+    name: 'Break Room / Storage',
+    category: 'back-of-house',
+    sort_order: 8,
+    checkpoints: ['Inventory / supply shelving', 'Product storage', 'Employee lockers', 'Electrical panel', 'HVAC / mechanical', 'Fire extinguisher', 'Exit route clear'],
+  },
+  {
+    name: 'Exterior / Signage',
+    category: 'exterior',
+    sort_order: 9,
+    checkpoints: ['Storefront glass', 'Front door and hardware', 'Sidewalk / entry path', 'Parking area', 'Exterior signage / lighting', 'Building exterior', 'Accessibility path'],
+  },
+]
+
+// ─── LEGACY EXPORT (backward compat) ─────────────────────────────────────────
 
 export const DEFAULT_ZONES = BAR_ZONES
 
@@ -172,13 +389,18 @@ export function getZonesForBusinessType(type: string): ZoneTemplate[] {
       return RESTAURANT_ZONES
     case 'bar_and_restaurant':
       return BAR_AND_RESTAURANT_ZONES
+    case 'salon':
+    case 'barbershop':
+      return SALON_ZONES
+    case 'spa':
+    case 'nail_salon':
+      return SPA_ZONES
     case 'bar':
     case 'nightclub':
     case 'lounge':
     case 'brewery':
       return BAR_ZONES
     default:
-      // 'other' or unknown: return bar zones as a sensible default
       return BAR_ZONES
   }
 }
@@ -190,5 +412,10 @@ export const BUSINESS_TYPE_LABELS: Record<string, string> = {
   brewery: 'Brewery Taproom',
   restaurant: 'Restaurant',
   bar_and_restaurant: 'Bar & Restaurant',
+  salon: 'Salon / Barbershop',
+  spa: 'Spa / Nail Salon',
   other: 'Other',
 }
+
+// Business types that use salon-specific AI prompts
+export const SALON_BUSINESS_TYPES = new Set(['salon', 'barbershop', 'spa', 'nail_salon'])

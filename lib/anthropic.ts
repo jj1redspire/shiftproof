@@ -24,18 +24,85 @@ export interface ZoneConditionResult {
   summary: string
 }
 
+// Returns business-type-specific context injected into the AI prompt.
+// This drives vertical-specific severity logic and compliance flags
+// without changing the output schema.
+function getBusinessTypeContext(businessType: string): string {
+  const isSalon = ['salon', 'barbershop', 'spa', 'nail_salon'].includes(businessType)
+  const isRestaurant = ['restaurant', 'bar_and_restaurant'].includes(businessType)
+
+  if (isSalon) {
+    return `
+This is a salon / barbershop / spa facility. Apply these additional rules:
+
+CHEMICAL STORAGE COMPLIANCE — Flag as urgent if the user mentions:
+- Unlocked chemical cabinets or unsecured chemical storage
+- Unlabeled containers or missing product labels
+- Missing or inaccessible SDS/MSDS binder
+- Expired products in active use
+- Chemical spills not cleaned up
+- Poor or non-functioning ventilation in the color/chemical area
+Flag as attention: any staining from chemicals on surfaces that could be evidence of ongoing damage.
+
+STATE COSMETOLOGY BOARD ITEMS — Flag as attention if the user mentions:
+- Sanitation logs not posted or not current
+- Implements not properly sterilized or sorted (clean vs. dirty)
+- Towels / capes not properly stored
+- Sterilizer/autoclave not functioning or not logged
+- Client intake/consent records disorganized
+
+OSHA BLOODBORNE PATHOGENS (barbershops, nail salons) — Flag as urgent if:
+- Sharps disposal container missing, full, or unsealed
+- No barrier precaution supplies (gloves, masks) stocked
+- No visible spill cleanup kit in chemical or treatment areas
+
+SLIP-AND-FALL PRIORITY ZONES:
+- Shampoo bowl area: wet floor, missing anti-slip mats → urgent
+- Pedicure area: standing water, drainage issues → urgent
+- Color area: chemical spills on floor → attention
+`
+  }
+
+  if (isRestaurant) {
+    return `
+This is a restaurant facility. Apply these additional rules:
+
+HEALTH INSPECTION ITEMS — Flag as attention if the user mentions:
+- Grease trap access covers displaced or overflow signs
+- Hood/ventilation not functioning or grease buildup visible
+- Walk-in cooler door seals worn or not sealing
+- Floor drains slow or backing up
+- Refrigeration units not closing properly
+- Fire suppression nozzles disturbed or tags expired
+
+SLIP-AND-FALL PRIORITY:
+- Wet floors without signage → urgent
+- Uneven pavers or cracked flooring in dining or patio → attention
+- Worn or displaced floor mats → attention
+`
+  }
+
+  // Default: bar/nightclub
+  return `This is a bar or nightclub facility.`
+}
+
 export async function structureVoiceNote(
   zoneName: string,
-  transcript: string
+  transcript: string,
+  businessType = 'bar'
 ): Promise<ZoneConditionResult> {
+  const businessContext = getBusinessTypeContext(businessType)
+
   const message = await anthropic.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 1024,
     messages: [
       {
         role: 'user',
-        content: `You are a facility condition documentation assistant for a bar/nightclub.
+        content: `You are a facility condition documentation assistant.
 The user has just recorded a voice observation about the following zone: ${zoneName}.
+
+${businessContext}
 
 Voice observation: "${transcript}"
 
@@ -59,6 +126,7 @@ Rules:
 - Do not add observations they didn't make.
 - If they mention something is "pre-existing" or "unchanged," set is_preexisting: true.
 - If the observation is vague (e.g. "looks fine"), return overall_rating: "good" with a single normal condition_item.
+- Apply the business-type severity rules above when relevant.
 - Return ONLY valid JSON, no markdown, no explanation.`,
       },
     ],
