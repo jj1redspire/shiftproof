@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx netlify-cli *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w '%{http_code}' --max-time 15 https://__TRACKED_VAR__)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" --max-time 15 -X POST \"https://pmixyehszvattjywllsr.supabase.co/auth/v1/signup\" -H \"Content-Type: application/json\" -d '{\"email\":\"test@test.com\",\"password\":\"testtest123\"}')",
+      "Bash(curl -v --max-time 15 \"https://fleetproof.io\")",
+      "Bash(curl -v --max-time 15 \"https://venueproof.io\")",
+      "Bash(curl -v --max-time 15 \"https://pmixyehszvattjywllsr.supabase.co/auth/v1/signup\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('name:', d.get\\('name'\\)\\); print\\('url:', d.get\\('ssl_url'\\)\\); print\\('custom_domain:', d.get\\('custom_domain'\\)\\); ssl=d.get\\('ssl'\\); print\\('ssl_state:', ssl\\)\" echo \"\" done)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\({'name':d.get\\('name'\\),'url':d.get\\('ssl_url'\\),'custom_domain':d.get\\('custom_domain'\\),'deploy_url':d.get\\('deploy_url'\\)}, indent=2\\)\\)\")",
+      "Bash(wait)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('SHIFTPROOF name:', d.get\\('name'\\), '| ssl_url:', d.get\\('ssl_url'\\), '| custom_domain:', d.get\\('custom_domain'\\)\\)\" npx netlify-cli api getSite --data '{\"site_id\":\"1d9d2104-1a7e-475b-ab06-5f3d1d964722\"}')",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('VENUEPROOF name:', d.get\\('name'\\), '| ssl_url:', d.get\\('ssl_url'\\), '| custom_domain:', d.get\\('custom_domain'\\)\\)\" npx netlify-cli api getSite --data '{\"site_id\":\"f19b9d07-045b-4c0b-8765-b6fe87012e7e\"}')",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('FLEETPROOF name:', d.get\\('name'\\), '| ssl_url:', d.get\\('ssl_url'\\), '| custom_domain:', d.get\\('custom_domain'\\)\\)\")",
+      "Bash(node -e ' *)",
+      "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\)\\); const u=d.users; const key=Object.keys\\(u\\)[0]; console.log\\('token:', u[key].auth?.token?.slice\\(0,8\\)+'...'\\); console.log\\('email:', u[key].email\\);\")",
+      "Bash(cat)",
+      "Bash(node /tmp/get_token.mjs)",
+      "Bash(curl -s -X PATCH https://api.netlify.com/api/v1/sites/1d9d2104-1a7e-475b-ab06-5f3d1d964722 -H 'Authorization: Bearer nfc_BDuHG3hDGLne2my4J9kQCb7S2amzAHLRb0f0' -H 'Content-Type: application/json' -d '{\"custom_domain\":\"venueproof.io\"}')",
+      "Bash(curl -s https://api.netlify.com/api/v1/sites/671ae7b4-e4ee-485b-82f3-ec0784db9390/ssl -H 'Authorization: Bearer nfc_BDuHG3hDGLne2my4J9kQCb7S2amzAHLRb0f0')",
+      "Bash(curl -s --max-time 15 \"https://shiftproof.io\")",
+      "Bash(curl -s https://api.netlify.com/api/v1/sites/1d9d2104-1a7e-475b-ab06-5f3d1d964722/env -H 'Authorization: Bearer nfc_BDuHG3hDGLne2my4J9kQCb7S2amzAHLRb0f0')",
+      "Bash(curl -sL --max-time 10 \"https://venueproof.netlify.app\")",
+      "Bash(curl -s -X POST https://api.netlify.com/api/v1/sites/1d9d2104-1a7e-475b-ab06-5f3d1d964722/builds -H 'Authorization: Bearer nfc_BDuHG3hDGLne2my4J9kQCb7S2amzAHLRb0f0' -H 'Content-Type: application/json')",
+      "Bash(curl -sL \"https://dns.google/resolve?name=pmixyehszvattjywllsr.supabase.co&type=A\")",
+      "Bash(curl -v --max-time 10 \"https://fleetproof.io\")",
+      "Bash(curl -s 'https://api.netlify.com/api/v1/sites?per_page=100' -H 'Authorization: Bearer nfc_BDuHG3hDGLne2my4J9kQCb7S2amzAHLRb0f0')",
+      "Bash(node -e \" const d = JSON.parse\\(require\\('fs'\\).readFileSync\\(0,'utf8'\\)\\); const names = ['sightproof','sitewrap','classvoice','kindredgrants','threadkey','tubeprofit']; d.forEach\\(s => { const match = names.find\\(n => s.name && s.name.toLowerCase\\(\\).includes\\(n\\)\\); if \\(match\\) console.log\\(match, s.id, s.ssl_url, s.custom_domain\\); }\\); \")",
+      "Bash(curl -s 'https://api.netlify.com/api/v1/accounts/jj1redspire/env/NEXT_PUBLIC_SUPABASE_URL?site_id=671ae7b4-e4ee-485b-82f3-ec0784db9390' -H 'Authorization: Bearer nfc_BDuHG3hDGLne2my4J9kQCb7S2amzAHLRb0f0')"
+    ]
+  }
+}
