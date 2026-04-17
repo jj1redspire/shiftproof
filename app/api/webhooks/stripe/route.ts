@@ -43,12 +43,13 @@ export async function POST(request: NextRequest) {
           plan,
         })
 
+        const sub0 = subscription as unknown as { current_period_start?: number; current_period_end?: number }
         await supabaseAdmin.from('shiftproof_subscriptions').upsert({
           user_id: userId,
           stripe_subscription_id: subscription.id,
           status: subscription.status,
-          current_period_start: new Date(((subscription as unknown as {current_period_start: number}).current_period_start) * 1000).toISOString(),
-          current_period_end: new Date(((subscription as unknown as {current_period_end: number; cancel_at?: number}).current_period_end) * 1000).toISOString(),
+          current_period_start: sub0.current_period_start ? new Date(sub0.current_period_start * 1000).toISOString() : null,
+          current_period_end: sub0.current_period_end ? new Date(sub0.current_period_end * 1000).toISOString() : null,
           updated_at: new Date().toISOString(),
         }, { onConflict: 'stripe_subscription_id' })
         break
@@ -67,11 +68,12 @@ export async function POST(request: NextRequest) {
             subscription_status: subscription.status,
           }).eq('id', user.user_id)
 
+          const sub1 = subscription as unknown as { current_period_start?: number; current_period_end?: number; cancel_at?: number }
           await supabaseAdmin.from('shiftproof_subscriptions').update({
             status: subscription.status,
-            current_period_start: new Date(((subscription as unknown as {current_period_start: number}).current_period_start) * 1000).toISOString(),
-            current_period_end: new Date(((subscription as unknown as {current_period_end: number; cancel_at?: number}).current_period_end) * 1000).toISOString(),
-            cancel_at: ((subscription as unknown as {cancel_at?: number}).cancel_at) ? new Date(((subscription as unknown as {cancel_at?: number}).cancel_at as number) * 1000).toISOString() : null,
+            current_period_start: sub1.current_period_start ? new Date(sub1.current_period_start * 1000).toISOString() : null,
+            current_period_end: sub1.current_period_end ? new Date(sub1.current_period_end * 1000).toISOString() : null,
+            cancel_at: sub1.cancel_at ? new Date(sub1.cancel_at * 1000).toISOString() : null,
             updated_at: new Date().toISOString(),
           }).eq('stripe_subscription_id', subscription.id)
         }
