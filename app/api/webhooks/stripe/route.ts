@@ -36,11 +36,12 @@ export async function POST(request: NextRequest) {
         if (priceId === process.env.STRIPE_PRICE_ID_MULTI) plan = 'multi'
         else if (priceId === process.env.STRIPE_PRICE_ID_ENTERPRISE) plan = 'enterprise'
 
-        await supabaseAdmin.from('shiftproof_users').update({
+        await supabaseAdmin.from('shiftproof_users').upsert({
+          id: userId,
           stripe_customer_id: session.customer as string,
           subscription_status: 'active',
           plan,
-        }).eq('id', userId)
+        })
 
         await supabaseAdmin.from('shiftproof_subscriptions').upsert({
           user_id: userId,
