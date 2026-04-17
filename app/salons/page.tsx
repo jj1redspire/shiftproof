@@ -416,7 +416,9 @@ export default function SalonsPage() {
             <Link href="/" className="hover:text-white transition-colors">Bars &amp; Nightclubs</Link>
             <Link href="/restaurants" className="hover:text-white transition-colors">Restaurants</Link>
             <Link href="/auth/login" className="hover:text-white transition-colors">Sign In</Link>
-            <a href="mailto:joel@helmport.com" className="hover:text-white transition-colors">Contact</a>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+            <a href="mailto:joel@ashwardgroup.com" className="hover:text-white transition-colors">Contact</a>
           </div>
         </div>
       </footer>

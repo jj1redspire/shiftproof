@@ -412,7 +412,9 @@ export default function RestaurantsPage() {
             <Link href="/" className="hover:text-white transition-colors">Bar &amp; Nightclub</Link>
             <Link href="/auth/login" className="hover:text-white transition-colors">Sign In</Link>
             <Link href="/auth/signup" className="hover:text-white transition-colors">Sign Up</Link>
-            <a href="mailto:joel@helmport.com" className="hover:text-white transition-colors">Contact</a>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+            <a href="mailto:joel@ashwardgroup.com" className="hover:text-white transition-colors">Contact</a>
           </div>
         </div>
       </footer>
